@@ -57,7 +57,8 @@ app.get('/alumnos/:nombre', (req, res) => {
 app.post('/alumnos', (req, res) => {
     console.log('Agregando usuario...');
     console.log(req.body);
-    req.body.id = alumnos.length + 1;
+    console.log(req.body);
+    //req.body.id = alumnos.length + 1;
     alumnos.push(req.body);
     escribirarchivo();
     res.json({ agregado: 'ok' });
