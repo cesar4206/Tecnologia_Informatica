@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <title>Agrega Alumno</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <h1>ALUMNOS</h1>
+        <label> Clave </label>
+        <input type="text" id="clave" class="form-control mx-1" name="cve">
+        <br>
+        <label> Nombre </label>
+        <input type="text" id="nombre" class="form-control mx-1" name="nom">
+        <br>
+
+        <button id="agregarAlumno" class="btn btn-primary">Agregar</button>
+        <button id="eliminarAlumno" class="btn btn-primary">Eliminar</button>
+
+        <div>
+            <h4> Lista de Alumnos </h4>
+            <ul id="lista-alumnos" class="list-group"></ul>
+        </div>
+
+    </div>
+</body>
+
+<script>
+    $(document).ready(function () {
+        
+        getAlumnos();
+
+        $("#agregarAlumno").on("click", function (event) {
+            console.log(event);
+            var alumno = {}; 
+            alumno.Nombre = $("#nombre").val();
+            alumno.clave = $("#clave").val();
+            sendPOSTRequest(alumno);
+            $("#nombre").val('');
+            $("#clave").val('');
+        });
+
+        $("#eliminarAlumno").on("click", function (event) {
+            console.log(event);
+            var alumno = {}; 
+            alumno.Nombre = $("#nombre").val();
+            alumno.clave = $("#clave").val();
+            eliminaxPost(alumno);
+            $("#nombre").val('');
+            $("#clave").val('');
+        });
+    });
+
+    function getAlumnos() {
+        //LLamada GET para obtener los alumnos
+        //Se muestra resultado con una lista en HTML
+        //Se utiliza un ciclo for y se genera el codigo HTML
+        //Usando Jquery se coloca el HTML en la lista.
+        $.get("http://localhost:3000/alumnos", function (data) {
+            var listHTML = "";
+            console.log(data);
+            data.forEach(alumno => {
+                listHTML += "<li class='list-group-item'> Clave : " + alumno.clave + " | Nombre: " + alumno.Nombre + "</li>";
+            });
+            $("#lista-alumnos").html(listHTML);
+        });
+    }
+
+    function eliminaxPost(body_object) {
+        console.log("Objeto enviado por POST: ");
+        console.log(body_object);
+        $.post("http://localhost:3000/elimina", body_object, function () {
+            alert("Eliminado");
+            getAlumnos();
+        }, "json");
+
+    }
+
+    function sendPOSTRequest(body_object) {
+        //Llamada post al backend usando jquery.
+        console.log("Objeto enviado por POST: ");
+        console.log(body_object);
+        $.post("http://localhost:3000/agreganuevo", body_object, function () {
+            alert("Agregado");
+            getAlumnos();
+        }, "json");
+
+    }
+
+
+</script>
+
+</html>
