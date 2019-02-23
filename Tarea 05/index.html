@@ -69,9 +69,17 @@
             var listHTML = "";
             console.log(data);
             data.forEach(alumno => {
-                listHTML += "<li class='list-group-item'> Clave : " + alumno.clave + " | Nombre: " + alumno.Nombre + "</li>";
+                listHTML += "<li class='list-group-item'>" + 
+                "<button type='button' class='delete btn btn-danger btn-sm' data-clave=' "+ alumno.clave +"'> <i class='material-icons'>delete</i></button>"
+                " | Clave : " + alumno.clave + " | Nombre: " + alumno.Nombre + "</li>";
             });
             $("#lista-alumnos").html(listHTML);
+
+            $(".delete").on("click", (event) => {
+                console.log("Button delete");
+                console.log(event.target);
+                sendDELETERequest({"clave": event.target.dataset["clave"]});
+            })
         });
     }
 
@@ -93,6 +101,21 @@
             alert("Agregado");
             getAlumnos();
         }, "json");
+
+    function sendDELETERequest(body_object) {
+        $.ajax({
+            method: "DELETE",
+            url: "http://localhost:3000/alumnos",
+            data: body_object
+            .done(function(msg){
+                alert("Alumno eliminado" + body_object.clave);
+            })
+            .fail(function(msg){
+                alert("Error eliminando" + body_object.clave);
+            }),
+            getAlumnos();
+        })
+    }
 
     }
 

@@ -88,7 +88,8 @@ var db = {
       if(alumno.clave == aux.clave && alumno.nombre == aux.nombre)
       {
         delete this.alumnos[i];
-        this.alumnos.pop();
+        this.alumnos.splice(i,1);
+        //this.alumnos.pop();
         this.guardaNuevo();
         break;
       }
