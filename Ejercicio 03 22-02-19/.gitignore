@@ -1,0 +1,7 @@
+#Ingore logs
+*.log
+#ignore Modules
+/node_modules
+*/node_modules
+#ignore lock files
+*lock.*
