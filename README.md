@@ -34,3 +34,63 @@ y un boton para generar el post de la llamada
 Referencias:
     www.w3schools.com
     como utilizar llamadas post con jquery post 
+
+###### Tarea 05
+
+-Eliminar a un Alumno
+
+###### Tarea 06
+
+-Editar los campos del Alumno
+
+###Instalacion
+npm i --save body-parser
+npm i --save express
+
+###### Seguridad Informatica
+
+Confidencialidad
+       -Autentificacion (Confirma que tu eres tu)
+       -Autorizacion(Permisos)
+
+Integridad             
+        *Asegurar que la información que se pressenta nadie la ha modificado de por medio
+            -Certificados
+            -Firmas
+            -Fingerprint
+  
+Disponibilidad         
+        -Que los datos esten siempre disponibles
+
+-REST API
+    Basic Auth
+        HTTP - HEADER
+        Lallave se manda por la cabecera
+
+
+    Api Key
+        HTTP - HEADER
+        Generar una llave semi-privada
+
+    Auth/Aut OAuth
+        Autentificacion y Autorizacion Delegada
+        OAuth - Manda un Token con caducidad 
+            JWT
+
+Aplicacion  (Que se conecte a una api externa, YouTube, Spotify, Instagram, Facebook, Twitter)
+    FrontEnd (JS)
+    -Conexion a API
+    -Consulta y despliegue
+        -Artista, Album, y enviarlo al BackEnd
+
+    BackEnd (NODE)
+    -Guardar Resultados en JSon
+    -Enviar Resultados Guardados (Si lo pide el FrontEnd)
+
+->Enviar Consulta a BackEnd
+->Siguiente Vez muestra al BackEnd
+
+
+
+
+
