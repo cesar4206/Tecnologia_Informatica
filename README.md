@@ -5,7 +5,11 @@
 ###### 01-02-19
 Uso de la libreria npm math y conectandolo a un servidor en node 
 
+###### 15-02-19
+Ejercicio creando un metodo post a los alumnos
 
+###### 22-02-19
+Ejercicio del Profesor completo con agregar, editar y elimina alumnos
 
 ## Tareas
 
@@ -37,15 +41,25 @@ Referencias:
 
 ###### Tarea 05
 
+-Agrega a un Alumno
 -Eliminar a un Alumno
 
 ###### Tarea 06
 
+-Agrega a un Alumno
+-Eliminar a un Alumno
 -Editar los campos del Alumno
 
-###Instalacion
+###### Examen
+Crear una paina que se conecte a una Api de Spooty
+La Api solo realiza consultas, no guarda la lista de las busquedas realizada
+
+###Instalacion de Dependencias
 npm i --save body-parser
 npm i --save express
+
+
+## Apuntes 
 
 ###### Seguridad Informatica
 

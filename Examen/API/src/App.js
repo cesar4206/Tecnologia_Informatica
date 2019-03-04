@@ -4,27 +4,27 @@ class App extends Component {
   constructor(props) {
 //    const express = require("express");
 //    const bodyParser = require("body-parser");
-    const archivos = require('fs');
-  //  var app = express();
-    //DB Handler
-      var db = {
-      //Indicar BD o abrir conexion
-      initDB: function () {
-        var fs = require("fs");
-        var contents = fs.readFileSync("artista.json");
-        this.artistas = JSON.parse(contents);
-      },
+  //   const archivos = require('fs');
+  // //  var app = express();
+  //   //DB Handler
+  //     var db = {
+  //     //Indicar BD o abrir conexion
+  //     initDB: function () {
+  //       var fs = require("fs");
+  //       var contents = fs.readFileSync("artista.json");
+  //       this.artistas = JSON.parse(contents);
+  //     },
 
-      saveArtistas: function (infoArtista) {
-        archivos.writeFileSync('artistas.json', JSON.stringify(this.artistas),
-          function (error) {
-            if (error) {
-              console.log('Hubo un error al escribir en el archivo')
-              console.log(error);
-            }
-          });
-      }
-    }
+  //     saveArtistas: function (infoArtista) {
+  //       archivos.writeFileSync('artistas.json', JSON.stringify(this.artistas),
+  //         function (error) {
+  //           if (error) {
+  //             console.log('Hubo un error al escribir en el archivo')
+  //             console.log(error);
+  //           }
+  //         });
+  //     }
+  //   }
     
     //   getArtistaBy: function (filter, value) {
     //     console.log("filtro: " + filter + "valor: " + value);
@@ -75,7 +75,7 @@ class App extends Component {
     console.log('this.state', this.state);
     const BASE_URL = 'https://api.spotify.com/v1/search?';
     const FETCH_URL = BASE_URL + 'q=' + this.state.query + '&type=artist&limit=1';
-    var accessToken = 'BQAzb3EBcJYsgkcxaRhdeIVqKTOcs7dO6YvbK91J2vIpPK__9CRilu_10ocpgx3Cl838Dy_78mux0kNjR3pHDaDktmTO6JLJZnjBeO1T6DGIT_X3Lx5k9YxSMcLhXAxsvFfNn4Ocjsr-zx6sqfctao6wgAq2Zb6vUJMLneim34Y&refresh_token=AQC4z3xNsil0LXFi3lbSkSKxVYJ4Dogzjwq01kIaNQEbqXAXEL3gEW0X6UFJoFjUumGA3LFxPiBAjU8w84Y5OHmZakDLO4mJL8dxFFiMBIKNzAKAUozM4sR5FfnQ1o1qT8P4eQ'
+    // var accessToken = 'BQDZPrAQ55lKmhQB3YBkv61P6Y0wrjtbS6rw9iRsaCN7Jy4D9rOaHgzw-kDUOLZE7Jd-2S2R60rfh8UfbiR8hLW0MwJLoVQWUEFaDX6JxVHF4wTgQGgegVu4GVzGdgF9s6GyUjrrmzZog6kvg8hCCgkoSi4XXx2V0ZAf2hA--X8&refresh_token=AQAHqHbcmKcXFPfjD5zOwH3Ygo5COGTHX0at4juyy-l_oQWDo3CRGsI3ODgamNHenXTNkNNaFDVWev9KQ6S07jsgwq_lDEqv9k5i1KvRhVJ9qXh3Be8Dr0VfL8TvHTkzzopmog'
 
     var myOptions = {
       method: 'GET',
@@ -95,7 +95,7 @@ class App extends Component {
 
   }
 
-  render() {
+  render() {   
 
     let artist = {
       name: '',
@@ -109,29 +109,6 @@ class App extends Component {
     }
 
     return (
-      // return JSX 
-      // <div className="container">
-      //   <hr />
-      //   <div className="col-lg-6">
-      //     <div className="input-group">
-      //       <input type="text"
-      //         onChange={event => { this.setState({ query: event.target.value }) }}
-      //         className="form-control" placeholder="Artista..." />
-      //       <span className="input-group-btn">
-      //         <button
-      //           onClick={() => this.search()}
-      //           className="btn btn-default" class="btn btn-primary" type="button">Buscar</button>
-      //       </span>
-      //     </div>
-      //   </div>
-      //   <hr />
-      //   <div>
-      //     Artista: <div> {artist.name}   </div>
-      //     Album: <div> {artist.album}   </div>
-      //     Followers: <div> {artist.followers.total} </div>
-      //   </div>
-      // </div>
-
       <div className="container">
         <nav className="navbar navbar-dark bg-dark navbar-expand-md navbar-expand-sm">
           <a href="" className="navbar-brand">Spotify API</a>
@@ -155,6 +132,7 @@ class App extends Component {
 
         <div>
           <table className="table table-condensed ">
+          <tbody>
             <tr >
               <td align="center" width="150px">Artista</td>
               <td align="center" width="150px">Followers</td>
@@ -165,6 +143,7 @@ class App extends Component {
               <td align="center"> {artist.followers.total} </td>
               <td align="center"> {artist.popularity} </td>
             </tr>
+            </tbody>
           </table>
 
         </div>

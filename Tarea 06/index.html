@@ -8,28 +8,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 </head>
 
-<body>
-  <div class="container">
-    <h1>Agrega, Edita y Elimina Alumnos</h1>
-    <label> Clave </label>
-    <input type="text" id="clave" class="form-control mx-1" name="clave">
+<body style="background-color:gray;">
+    <nav class="navbar navbar-dark bg-dark navbar-expand-md navbar-expand-sm">
+      <a href="#" class="navbar-brand">Agrega, Edita y Elimina Alumnos</a>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#Mimenu"><span
+          class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="Mimenu">
+        <ul class="navbar-nav ml-auto form-inline">
+          <li class="nav-item my-2 my-lg-0">
+            <!-- <label style="color:rgb(255, 255, 255);"> Clave </label> -->
+            <input type="text" id="clave" class="form-control mx-1 my-2 my-lg-0" name="clave" placeholder="Clave...">
+          </li>
+          <li class="nav-item my-2 my-lg-0">
+            <!-- <label style="color:rgb(255, 255, 255);"> Nombre </label> -->
+            <input type="text" id="nombre" class="form-control mx-1 my-2 my-lg-0" name="nombre" placeholder="Nombre...">
+          </li>
+          <li class="nav-item my-2 my-lg-0">
+            <button id="agregarAlumno" class="btn btn-outline-success my-2 my-sm-0">Agregar</button>
+          </li>
+        </ul>
+      </div>
+    </nav>
     <br>
-    <label> Nombre </label>
-    <input type="text" id="nombre" class="form-control mx-1" name="nombre">
-    <br>
+    <div class="container">
 
-    <button id="agregarAlumno" class="btn btn-primary">Agregar</button>
+    <div id="mensaje">
+
+    </div>
 
     <div>
-      <h4> Lista de Alumnos </h4>
-      <ul id="lista-alumnos" class="list-group"></ul>
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Clave</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody id="lista-alumnos">
+          <tr>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
   </div>
@@ -37,23 +68,23 @@
   <!-- Modal -->
   <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editModalLabel">Editar Alumno</h5>
+          <h5 class="modal-title" id="editModalLabel">Alumno </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <input type="text" id="claveEdit" name="nombreEdit" placeholder="Clave">
+            <input type="text" name="claveEdit" id="claveEdit" placeholder="Clave">
             <input type="text" name="nombreEdit" id="nombreEdit" placeholder="Nombre">
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" id="SaveEdit">Guardar Cambios</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-outline-success" id="SaveEdit">Save changes</button>
         </div>
       </div>
     </div>
@@ -62,25 +93,20 @@
 </body>
 
 <script>
-  //cunado el documento este listo y todos los objetos 
-  $(document).ready(function () {
+  $(document).ready(function () {//Carga los Objetos del documento
+    getAlumnos();//Se obtiene la lista de Alumnos
 
-    //Una vez que este listo el documento obtendremos la lista de alumnos y la mostraremos.
-    getAlumnos();
-
-    //Programacion del boton act para obtener datos del input.
-    $("#agregarAlumno").on("click", function (event) {
+    $("#agregarAlumno").on("click", function (event) {//Al hacer click en enviar obtiene los valores de los imput
       console.log(event);
-      var alumno = {}; //Creacion de objeto con la info necesaria.
+      var alumno = {}; //Se crea la lista del almno
       alumno.nombre = $("#nombre").val();
       alumno.clave = $("#clave").val();
-      //Invocamos a la funcion para llamadas post y mandamos el obeto.
-      sendPOSTRequest(alumno);
+      sendPOSTRequest(alumno);//Invocamos a la funcion para llamadas post y mandamos el obeto.
     });
 
     $('#editModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget); // el botton que invoca al modal
-      var clave = button.data('clave'); //  data-* attributes
+      var clave = button.data('clave');
       var nombre = button.data('nombre');
       // se puede realizar una busqueda del objeto usando la misma API si tuviera mas propiedades.
       var modal = $(this);
@@ -109,10 +135,14 @@
       var listHTML = "";
       console.log(data);
       data.forEach(alumno => {
-        listHTML += "<li class='list-group-item'>" +
-          " <button type='button' class='delete btn btn-danger btn-sm' data-clave='" + alumno.clave + "'> <i class='material-icons'>delete</i> </button> " +
-          " <button type='button' class='edit btn btn-warning btn-sm' data-clave='" + alumno.clave + "' data-nombre='" + alumno.nombre + "' data-toggle='modal' data-target='#editModal'> <i class='material-icons'>create</i> </button> " +
-          " | Clave : " + alumno.clave + " | Nombre: " + alumno.nombre + " </li>";
+        listHTML += "<tr>" +
+          "<td> " + alumno.clave + " </td>" +
+          "<td> " + alumno.nombre + " </td>" +
+          "<td>" +
+          " <button type='button' class='delete btn btn-danger btn-sm' data-clave='" + alumno.clave + "'  > <i class='far fa-trash-alt'> </i>  </button> " +
+          " <button type='button' class='edit btn btn-warning btn-sm' data-clave='" + alumno.clave + "' data-nombre='" + alumno.nombre + "' data-toggle='modal' data-target='#editModal'> <i class='far fa-edit'></i> </button> " +
+          "</td>" +
+          "</tr>";
       });
       $("#lista-alumnos").html(listHTML);
 
@@ -125,46 +155,71 @@
     });
   }
 
-  function sendPOSTRequest(body_object) {
-    //Llamada post al backend usando jquery.
-
+  function sendPOSTRequest(body_object) {//Llamada post al backend usando jquery.
     $.post("http://localhost:3000/alumnos", body_object,
       function () {
-        alert("Alumno guardado.");
-        //Actualizamos la lista html para ver los cambios.
-        getAlumnos();
+        alertHTML = "<div class='alert alert-success alert-dismissible fade show' role='alert'>" +
+          "<strong>Exito!</strong> Alumno Guardado" +
+         "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+            "<span aria-hidden='true'>&times;</span>" +
+          "</button>" +
+        "</div>";
+        getAlumnos();//Se obtiene la lista de Alumnos
+        $("#mensaje").html(alertHTML);
       });
+
   }
 
-  function sendDELETERequest(body_object) {
-    //Llamada delete al backend por medio de jquery
-
+  function sendDELETERequest(body_object) {//Llamada delete al backend por medio de jquery
     $.ajax({
       method: "DELETE",
       url: "http://localhost:3000/alumnos",
       data: body_object
     })
       .done(function (msg) {
-        alert("Alumno eliminado: " + body_object.clave);
+        alertHTML = "<div class='alert alert-danger alert-dismissible fade show' role='alert'>" +
+          "<strong> '" +body_object.clave +"' </strong> Alumno Eliminado" +
+         "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+            "<span aria-hidden='true'>&times;</span>" +
+          "</button>" +
+        "</div>";
+        $("#mensaje").html(alertHTML);
       })
       .fail(function (msg) {
-        alert("Error al eliminar alumno: " + body_object.clave)
+        alertHTML = "<div class='alert alert-warning alert-dismissible fade show' role='alert'>" +
+          "<strong> '" +body_object.clave +"' </strong> Error al Eliminar" +
+         "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+            "<span aria-hidden='true'>&times;</span>" +
+          "</button>" +
+        "</div>";
+        $("#mensaje").html(alertHTML);
       });
     getAlumnos();
   }
 
-  function sendPUTRequest(body_object) {
-
+  function sendPUTRequest(body_object) {//Llamada put al backend por medio de jquery
     $.ajax({
       method: "PUT",
       url: "http://localhost:3000/alumnos",
       data: body_object
     })
       .done(function (msg) {
-        alert("Alumno Editado: " + body_object.claveOld);
+        alertHTML = "<div class='alert alert-info alert-dismissible fade show' role='alert'>" +
+          "<strong> '" +body_object.claveOld +"' </strong> Alumno Editado" +
+         "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+            "<span aria-hidden='true'>&times;</span>" +
+          "</button>" +
+        "</div>";
+        $("#mensaje").html(alertHTML);
       })
       .fail(function (msg) {
-        alert("Error al editar alumno: " + body_object.claveOld)
+        alertHTML = "<div class='alert alert-danger alert-dismissible fade show' role='alert'>" +
+          "<strong> '" +body_object.claveOld +"' </strong> Error al Editar Alumno" +
+         "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+            "<span aria-hidden='true'>&times;</span>" +
+          "</button>" +
+        "</div>";
+        $("#mensaje").html(alertHTML);
       });
     getAlumnos();
   }

@@ -4,7 +4,6 @@ var app = express();
 
 const archivos = require('fs');
 
-
 //DB Handler
 var db = {
     //Indicar BD o abrir conexion
@@ -29,16 +28,15 @@ var db = {
         return selected;
     },
 
-    //Eliminar un alumno por la clave
+    //Elimina Alumno por Clave
     deleteAlumnoByClave : function (clave) {
       var index;
-      //Buscamos el indice del alumno
       for (index = 0; index < this.alumnos.length; index++) {
         if(this.alumnos[index].clave == clave )
         break;
       }
       
-      //Si se encontro el indice se elimina
+      //Si se encuentra
       if(index<db.alumnos.length){
         delete db.alumnos[index];
         db.alumnos.splice(index, 1);
@@ -50,7 +48,7 @@ var db = {
       //Buscamos el indice del alumno
       for (var index = 0; index < this.alumnos.length; index++) {
         if(this.alumnos[index].clave == alumno.claveOld ){
-          console.log("alumno encontrado.");
+          console.log("Alumno encontrado." + this.alumno);
           this.alumnos[index].clave = alumno.claveNew;
           this.alumnos[index].nombre = alumno.nombreNew;
           break;
