@@ -13,13 +13,13 @@ var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 
-var client_id = '42131febdc3a4a64a3ebb3db591b53d7'; // Your client id
-var client_secret = '88e955a17a3442209a6cdb36ddbc96fc'; // Your secret
+var client_id = 'Your client id'; // Your client id
+var client_secret = '// Your secret'; // Your secret
 var redirect_uri = 'http://localhost:8888/callback/'; // Your redirect uri
 
 /**
  * 
- * @token {BQBgG57JmwDFstDUrlxco_A6xsswcU6sV2gZIQE-EOhYOYmlWksIMP9eS8g-U1BgBCFSNQiS6lR7bpODc46QA7BsL6O7xXnGiIm3y_FfV1N0qau9HVqXC-moBkSpAmqh0aW8fqEaXqL6GJ8peinuNPV5TPPFuAKfZpTs7Jcn73Q&refresh_token=AQBnCf8gaadEPT8wHUMxa9fvezbInHY0OujHt_gmZRw0S4K_HGvuoBEvtFtITSJ98TzT6SyNI1nqlqNF8EAR-MIdUaQee1lJTh7s22yPc-KOOy2MNNk98ncUAODvRwRWzsP6AQ} length 
+ * @token {token} length 
  */
 
 /**
